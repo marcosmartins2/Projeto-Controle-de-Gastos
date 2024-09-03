@@ -68,10 +68,22 @@ function addItem(produto, data, preco) {
     if (!gastosPorSemana[semana]) {
         gastosPorSemana[semana] = [];
     }
-    let dataFormatada = formatarDataUsuario(data);
-    gastosPorSemana[semana].push(`${produto} - ${dataFormatada} - ${preco} reais.`);
+
+    // Ajustar a data para evitar problemas de fuso horário
+    let dataFormatada = formatarDataParaISO(data);
+    gastosPorSemana[semana].push({ produto, data: dataFormatada, preco });
+
+    // Ordenar a lista de gastos pela data
+    gastosPorSemana[semana].sort((a, b) => new Date(a.data) - new Date(b.data));
+
     salvarDados();
     atualizarLista();
+}
+
+function formatarDataParaISO(data) {
+    // Recebe a data no formato DD/MM/YYYY e converte para YYYY-MM-DD
+    const [dia, mes, ano] = data.split('/');
+    return `${ano}-${mes}-${dia}`;
 }
 
 function formatarData(data) {
@@ -89,16 +101,18 @@ function formatarDataUsuario(data) {
 function calcularSemana(data) {
     const date = new Date(data);
     const ano = date.getFullYear();
-    const primeiroDiaDoAno = new Date(ano, 0, 1);
 
-    const primeiraSegunda =
-        primeiroDiaDoAno.getDay() === 1
-            ? primeiroDiaDoAno
-            : new Date(ano, 0, 1 + ((1 - primeiroDiaDoAno.getDay() + 7) % 7));
+    // Ajustar para garantir que a data é corretamente considerada na semana
+    const primeiroDiaDoAno = new Date(ano, 0, 1);
+    const primeiroDiaSemana = primeiroDiaDoAno.getDay() || 7; // Converter domingo (0) para 7
+
+    // Ajustar para garantir que a primeira semana começa na segunda-feira
+    const primeiraSegunda = new Date(ano, 0, 1 + (1 - primeiroDiaSemana + 7) % 7);
     const diff = date - primeiraSegunda;
     const dias = Math.floor(diff / (24 * 60 * 60 * 1000));
     const semana = Math.ceil((dias + 1) / 7);
 
+    // Obter a segunda-feira da semana calculada
     const segundaDaSemana = new Date(primeiraSegunda);
     segundaDaSemana.setDate(primeiraSegunda.getDate() + (semana - 1) * 7);
 
@@ -122,7 +136,7 @@ function atualizarLista() {
             checkbox.classList.add('gasto-checkbox', 'w-4', 'h-4', 'ml-4', 'mr-4');
 
             let textoGasto = document.createElement('span');
-            textoGasto.textContent = gasto;
+            textoGasto.textContent = `${gasto.produto} - ${formatarData(new Date(gasto.data))} - ${gasto.preco} reais.`;
 
             let botaoExcluir = document.createElement('button');
             botaoExcluir.innerHTML = `<img src="images/deletar-imagem.png" alt="">`;
