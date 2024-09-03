@@ -125,7 +125,7 @@ function atualizarLista() {
             textoGasto.textContent = gasto;
 
             let botaoExcluir = document.createElement('button');
-            botaoExcluir.innerHTML = `<img src="../images/deletar-imagem.png" alt="">`;
+            botaoExcluir.innerHTML = `<img src="images/deletar-imagem.png" alt="">`;
             botaoExcluir.classList.add('botao-excluir', 'w-4', 'h-4');
 
             botaoExcluir.addEventListener('click', () => {
