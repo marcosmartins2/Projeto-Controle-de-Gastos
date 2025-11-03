@@ -1,4 +1,5 @@
-window.onload = function() {
+window.onload = function ()
+{
     carregarDados();
     atualizarLista();
 };
@@ -17,45 +18,56 @@ botaoAdicionar.innerHTML = '<i class="fas fa-plus text-2xl"></i>';
 let gastosPorSemana = JSON.parse(localStorage.getItem('gastosPorSemana')) || {};
 let produto, data, valor;
 
-botaoAdicionar.addEventListener('click', () => {
+botaoAdicionar.addEventListener('click', () =>
+{
     processarEntrada();
 });
 
-gastoAdicionado.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+gastoAdicionado.addEventListener('keydown', (event) =>
+{
+    if (event.key === 'Enter')
+    {
         event.preventDefault();
         processarEntrada();
     }
 });
 
-datas.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+datas.addEventListener('keydown', (event) =>
+{
+    if (event.key === 'Enter')
+    {
         event.preventDefault();
         processarEntrada();
     }
 });
 
-preco.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+preco.addEventListener('keydown', (event) =>
+{
+    if (event.key === 'Enter')
+    {
         event.preventDefault();
         processarEntrada();
     }
 });
 
-function processarEntrada() {
-    if (gastoAdicionado.value !== '' && datas.value === '') {
+function processarEntrada()
+{
+    if (gastoAdicionado.value !== '' && datas.value === '')
+    {
         produto = gastoAdicionado.value;
         gastoAdicionado.style.display = 'none';
         datas.style.display = 'block';
         titulo.classList.add('hidden');
         titulo2.classList.remove('hidden');
-    } else if (datas.value !== '' && preco.value === '') {
+    } else if (datas.value !== '' && preco.value === '')
+    {
         data = datas.value;
         datas.style.display = 'none';
         preco.style.display = 'block';
         titulo2.classList.add('hidden');
         titulo.classList.remove('hidden');
-    } else if (preco.value !== '' && preco.value != 0) {
+    } else if (preco.value !== '' && preco.value != 0)
+    {
         valor = preco.value;
         addItem(produto, data, valor);
         preco.style.display = 'none';
@@ -66,9 +78,11 @@ function processarEntrada() {
     }
 }
 
-function addItem(produto, data, preco) {
+function addItem(produto, data, preco)
+{
     let semana = calcularSemana(data);
-    if (!gastosPorSemana[semana]) {
+    if (!gastosPorSemana[semana])
+    {
         gastosPorSemana[semana] = [];
     }
 
@@ -83,25 +97,29 @@ function addItem(produto, data, preco) {
     atualizarLista();
 }
 
-function formatarDataParaISO(data) {
+function formatarDataParaISO(data)
+{
     // Recebe a data no formato DD/MM/YYYY e converte para YYYY-MM-DD
     const [dia, mes, ano] = data.split('/');
     return `${ano}-${mes}-${dia}`;
 }
 
-function formatarData(data) {
+function formatarData(data)
+{
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
     return `${dia}/${mes}/${ano}`;
 }
 
-function formatarDataUsuario(data) {
+function formatarDataUsuario(data)
+{
     const [ano, mes, dia] = data.split('-');
     return `${dia}/${mes}/${ano}`;
 }
 
-function calcularSemana(data) {
+function calcularSemana(data)
+{
     const date = new Date(data);
     const ano = date.getFullYear();
 
@@ -122,30 +140,32 @@ function calcularSemana(data) {
     return formatarData(segundaDaSemana);
 }
 
-function atualizarLista() {
+function atualizarLista()
+{
     lista.innerHTML = '';
-    for (const semana in gastosPorSemana) {
+    for (const semana in gastosPorSemana)
+    {
         // Week header
         let semanaItem = document.createElement('li');
         semanaItem.classList.add('bg-white/20', 'backdrop-blur-md', 'rounded-2xl', 'p-6', 'mb-4', 'border', 'border-white/30', 'shadow-xl', 'animate-scale-in');
-        
+
         let semanaHeader = document.createElement('div');
         semanaHeader.classList.add('flex', 'items-center', 'gap-3', 'mb-4', 'pb-4', 'border-b', 'border-white/30');
-        
+
         let iconCalendar = document.createElement('i');
         iconCalendar.classList.add('fas', 'fa-calendar-week', 'text-2xl', 'text-yellow-300');
-        
+
         let semanaTexto = document.createElement('h2');
         semanaTexto.classList.add('text-2xl', 'font-bold', 'text-white');
         semanaTexto.textContent = `Semana do dia ${semana}`;
-        
+
         semanaHeader.appendChild(iconCalendar);
         semanaHeader.appendChild(semanaTexto);
         semanaItem.appendChild(semanaHeader);
 
         // Calculate total for the week
         let totalSemana = gastosPorSemana[semana].reduce((sum, gasto) => sum + parseFloat(gasto.preco), 0);
-        
+
         let totalDiv = document.createElement('div');
         totalDiv.classList.add('bg-gradient-to-r', 'from-yellow-400/30', 'to-orange-400/30', 'rounded-xl', 'p-3', 'mb-4', 'border', 'border-yellow-300/50');
         totalDiv.innerHTML = `<span class="text-white font-semibold text-lg">💰 Total da semana: <span class="text-yellow-200 font-bold">R$ ${totalSemana.toFixed(2)}</span></span>`;
@@ -155,7 +175,8 @@ function atualizarLista() {
         let listaItens = document.createElement('ul');
         listaItens.classList.add('space-y-3');
 
-        gastosPorSemana[semana].forEach((gasto, index) => {
+        gastosPorSemana[semana].forEach((gasto, index) =>
+        {
             let item = document.createElement('li');
             item.classList.add('bg-white/10', 'backdrop-blur-sm', 'rounded-xl', 'p-4', 'border', 'border-white/20', 'transition-all', 'duration-300', 'hover:bg-white/20', 'hover:scale-102', 'hover:shadow-lg', 'flex', 'items-center', 'justify-between', 'gap-4');
 
@@ -193,11 +214,14 @@ function atualizarLista() {
             botaoExcluir.innerHTML = `<i class="fas fa-trash-alt"></i>`;
             botaoExcluir.classList.add('botao-excluir', 'bg-red-500', 'hover:bg-red-600', 'text-white', 'rounded-lg', 'w-10', 'h-10', 'flex', 'items-center', 'justify-center', 'transition-all', 'duration-300', 'hover:scale-110', 'shadow-lg', 'border', 'border-red-400');
 
-            botaoExcluir.addEventListener('click', () => {
+            botaoExcluir.addEventListener('click', () =>
+            {
                 item.style.animation = 'scaleOut 0.3s ease-out';
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     gastosPorSemana[semana].splice(index, 1);
-                    if (gastosPorSemana[semana].length === 0) {
+                    if (gastosPorSemana[semana].length === 0)
+                    {
                         delete gastosPorSemana[semana];
                     }
                     salvarDados();
@@ -205,13 +229,16 @@ function atualizarLista() {
                 }, 300);
             });
 
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) {
+            checkbox.addEventListener('change', () =>
+            {
+                if (checkbox.checked)
+                {
                     textoGasto.style.textDecoration = 'line-through';
                     textoGasto.style.opacity = '0.5';
                     detailsGasto.style.opacity = '0.5';
                     item.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
-                } else {
+                } else
+                {
                     textoGasto.style.textDecoration = 'none';
                     textoGasto.style.opacity = '1';
                     detailsGasto.style.opacity = '1';
@@ -221,7 +248,7 @@ function atualizarLista() {
 
             leftSection.appendChild(checkbox);
             leftSection.appendChild(infoContainer);
-            
+
             item.appendChild(leftSection);
             item.appendChild(botaoExcluir);
 
@@ -231,9 +258,10 @@ function atualizarLista() {
         semanaItem.appendChild(listaItens);
         lista.appendChild(semanaItem);
     }
-    
+
     // Add empty state
-    if (Object.keys(gastosPorSemana).length === 0) {
+    if (Object.keys(gastosPorSemana).length === 0)
+    {
         let emptyState = document.createElement('div');
         emptyState.classList.add('bg-white/10', 'backdrop-blur-md', 'rounded-2xl', 'p-12', 'text-center', 'border', 'border-white/20', 'shadow-xl');
         emptyState.innerHTML = `
@@ -261,10 +289,12 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-function salvarDados() {
+function salvarDados()
+{
     localStorage.setItem('gastosPorSemana', JSON.stringify(gastosPorSemana));
 }
 
-function carregarDados() {
+function carregarDados()
+{
     gastosPorSemana = JSON.parse(localStorage.getItem('gastosPorSemana')) || {};
 }

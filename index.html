@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -23,6 +25,7 @@
                 opacity: 0;
                 transform: translateX(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -34,6 +37,7 @@
                 opacity: 0;
                 transform: scale(0.8);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -45,6 +49,7 @@
                 opacity: 1;
                 transform: scale(1);
             }
+
             to {
                 opacity: 0;
                 transform: scale(0.8);
@@ -54,11 +59,11 @@
         .animate-fade-in {
             animation: fadeIn 0.8s ease-in-out;
         }
-        
+
         .animate-slide-in {
             animation: slideIn 0.5s ease-out;
         }
-        
+
         .animate-scale-in {
             animation: scaleIn 0.4s ease-out;
         }
@@ -82,11 +87,12 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-    
+
     <!-- Main Container -->
     <div class="container mx-auto px-4 py-8 max-w-4xl">
-        
+
         <!-- Header Section -->
         <div class="text-center mb-8 animate-fade-in">
             <div class="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-6 border border-white/20">
@@ -100,22 +106,22 @@
                     📅 Digite a data que deseja pagar
                 </h1>
             </div>
-            
+
             <!-- Input Section -->
             <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 border border-white/20">
                 <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                    <input type="text" 
-                           placeholder="✍️ Digite aqui o gasto..." 
-                           class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 gasto text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90">
-                    
-                    <input type="date" 
-                           class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 hidden data text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90">
-                    
-                    <input type="number" 
-                           class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 hidden preco text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90" 
-                           placeholder="💰 Digite o valor do seu gasto">
-                    
-                    <button class="adicionar bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white rounded-full w-14 h-14 shadow-xl transition-all duration-300 hover:scale-110 hover:rotate-90 flex items-center justify-center cursor-pointer border-2 border-white/30">
+                    <input type="text" placeholder="✍️ Digite aqui o gasto..."
+                        class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 gasto text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90">
+
+                    <input type="date"
+                        class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 hidden data text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90">
+
+                    <input type="number"
+                        class="rounded-xl w-full md:w-80 h-12 outline-none shadow-lg px-5 hidden preco text-gray-800 font-medium transition-all duration-300 focus:ring-4 focus:ring-purple-300 focus:scale-105 bg-white/90"
+                        placeholder="💰 Digite o valor do seu gasto">
+
+                    <button
+                        class="adicionar bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white rounded-full w-14 h-14 shadow-xl transition-all duration-300 hover:scale-110 hover:rotate-90 flex items-center justify-center cursor-pointer border-2 border-white/30">
                         <i class="fas fa-plus text-2xl"></i>
                     </button>
                 </div>
@@ -132,11 +138,13 @@
     <div class="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20 py-4">
         <footer class="text-center text-white font-medium">
             Desenvolvido com <span class="text-red-400 animate-pulse">❤️</span><br>
-            por <a href="https://www.instagram.com/marcosmartins_._/" target="_blank" class="hover:text-yellow-300 transition-colors duration-300 underline decoration-wavy">@marcosmartins_._</a>
+            por <a href="https://www.instagram.com/marcosmartins_._/" target="_blank"
+                class="hover:text-yellow-300 transition-colors duration-300 underline decoration-wavy">@marcosmartins_._</a>
         </footer>
     </div>
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
